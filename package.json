@@ -1,0 +1,30 @@
+{
+  "name": "plataformaideias",
+  "version": "1.0.0",
+  "description": "Aplicação web para que colaboradores enviem, votem e acompanhem propostas inovadoras.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SophieKumagai/plataformaIdeias.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SophieKumagai/plataformaIdeias/issues"
+  },
+  "homepage": "https://github.com/SophieKumagai/plataformaIdeias#readme",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "express-handlebars": "^8.0.3",
+    "express-session": "^1.18.2",
+    "mongoose": "^8.19.1",
+    "nodemon": "^3.1.10"
+  }
+}
