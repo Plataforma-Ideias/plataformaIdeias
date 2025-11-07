@@ -1,18 +1,18 @@
 # plataformaIdeias
 Aplicação web para que colaboradores enviem, votem e acompanhem propostas inovadoras.
 
-# 💡 Plataforma de Ideias - Inovação J&F ⚙️
+# Plataforma de Ideias
 
 Este é o repositório do MVP (Produto Mínimo Viável) da **Plataforma de Ideias**, um sistema desenvolvido para o Instituto J&F Tech. O objetivo é criar uma ferramenta robusta e segura para que os colaboradores possam enviar, gerenciar e votar em propostas de inovação.
 
-## 🎯 Features Principais
+## Features Principais
 
-* **Autenticação Robusta:** Sistema completo de cadastro, login e logout com gerenciamento de sessão e hashing de senhas.
+* **Autenticação:** Sistema completo de cadastro, login e logout com gerenciamento de sessão e hashing de senhas.
 * **Gestão de Ideias (CRUD):** Usuários autenticados podem criar, listar, ver detalhes, editar e remover suas próprias ideias.
 * **Sistema de Votação:** Mecanismo de voto único por ideia, com ordenação das ideias mais votadas.
 * **Segurança:** Implementação de variáveis de ambiente (`dotenv`), proteção de rotas (`isLoggedIn`, `isAuthor`), e blindagem de aplicação (`helmet`, `csurf`).
 
-## 🛠️ Tecnologias Utilizadas (Tech Stack)
+## Tecnologias Utilizadas (Tech Stack)
 
 * **Backend:** Node.js, Express
 * **Banco de Dados:** MongoDB com Mongoose (ODM)
@@ -20,18 +20,19 @@ Este é o repositório do MVP (Produto Mínimo Viável) da **Plataforma de Ideia
 * **View Engine:** Handlebars
 * **Segurança:** Helmet (proteção de headers), csurf (proteção CSRF)
 * **Qualidade:** dotenv (variáveis de ambiente), express-async-errors (tratamento de erros)
-* **UX:** express-flash (mensagens de feedback)
 
 ---
 
-## 🚀 Instalação e Execução
+## Instalação e Execução
 
 Siga os passos abaixo para rodar o projeto localmente.
 
 ### 1. Pré-requisitos
 
 * [Node.js](https://nodejs.org/en/) (versão 18.x ou superior)
-* [MongoDB](https://www.mongodb.com/try/download/community) (servidor local ou um Atlas URI)
+* [MongoDB](mongodb+srv://rodolfo:<db_password>@plataforma-ideias.lzwmuvr.mongodb.net/?appName=plataforma-ideias) (servidor local ou um Atlas URI)
+
+obs: db_password será passado para o professor.
 
 ### 2. Clone o Repositório
 
