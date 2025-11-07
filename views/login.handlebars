@@ -1,0 +1,124 @@
+<div class="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900 flex items-center justify-center p-4">
+  <div class="w-full max-w-md">
+    <div class="card bg-white shadow-lg rounded-lg overflow-hidden p-6">
+      <div class="text-center mb-6">
+        <h2 class="text-xl font-semibold text-gray-900">Bem-vindo</h2>
+        <p class="text-gray-500 text-sm">Faça login ou crie sua conta para começar</p>
+      </div>
+
+      <div class="bg-gray-100 p-2 rounded-lg mb-6">
+        <div class="grid grid-cols-2 gap-1 bg-gray-200 rounded-lg p-1">
+          <button
+            type="button"
+            class="tab-trigger {{#unless isRegister}}active{{/unless}}"
+            onclick="window.location.href='/login'"
+            {{#if isRegister}}disabled{{/if}}>
+            Login
+          </button>
+          <button
+            type="button"
+            class="tab-trigger {{#if isRegister}}active{{/if}}"
+            onclick="window.location.href='/register'"
+            {{#unless isRegister}}disabled{{/unless}}>
+            Cadastro
+          </button>
+        </div>
+      </div>
+
+      {{#if isRegister}}
+      <!-- Formulário de Cadastro -->
+      <form action="/register" method="POST" class="space-y-4">
+        <div class="space-y-2">
+          <label for="register-name" class="label">Nome Completo</label>
+          <input
+            id="register-name"
+            name="name"
+            type="text"
+            placeholder="Seu nome"
+            class="input"
+            required
+          />
+        </div>
+
+        <div class="space-y-2">
+          <label for="register-email" class="label">Email</label>
+          <input
+            id="register-email"
+            name="email"
+            type="email"
+            placeholder="seu.email@jef.com"
+            class="input"
+            required
+          />
+        </div>
+
+        <div class="space-y-2">
+          <label for="register-department" class="label">Departamento</label>
+          <input
+            id="register-department"
+            name="department"
+            type="text"
+            placeholder="Ex: Tecnologia, Inovação..."
+            class="input"
+            required
+          />
+        </div>
+
+        <div class="space-y-2">
+          <label for="register-password" class="label">Senha</label>
+          <input
+            id="register-password"
+            name="password"
+            type="password"
+            placeholder="••••••••"
+            class="input"
+            required
+          />
+        </div>
+
+        <button type="submit" class="btn w-full bg-lime-600 hover:bg-lime-700 text-white">
+          Criar Conta
+        </button>
+      </form>
+
+      {{else}}
+      <!-- Formulário de Login -->
+      <form action="/login" method="POST" class="space-y-4">
+        <div class="space-y-2">
+          <label for="login-email" class="label">Email</label>
+          <input
+            id="login-email"
+            name="email"
+            type="email"
+            placeholder="seu.email@jef.com"
+            class="input"
+            required
+          />
+        </div>
+
+        <div class="space-y-2">
+          <label for="login-password" class="label">Senha</label>
+          <input
+            id="login-password"
+            name="password"
+            type="password"
+            placeholder="••••••••"
+            class="input"
+            required
+          />
+        </div>
+
+        <button type="submit" class="btn w-full bg-blue-600 hover:bg-blue-700 text-white">
+          Entrar
+        </button>
+
+        {{#if demo}}
+        <p class="text-sm text-gray-500 text-center">
+          Demo: use qualquer email cadastrado (ex: ana@jef.com)
+        </p>
+        {{/if}}
+      </form>
+      {{/if}}
+    </div>
+  </div>
+</div>

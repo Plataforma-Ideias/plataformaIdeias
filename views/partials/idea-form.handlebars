@@ -1,0 +1,85 @@
+<div class="max-w-3xl mx-auto space-y-6">
+  <a href="javascript:history.back()" class="btn btn-ghost">
+    <i class="fas fa-arrow-left mr-2"></i>
+    Voltar
+  </a>
+
+  <div class="card">
+    <div class="card-header">
+      <h2 class="card-title">{{#if idea}}Editar Ideia{{else}}Nova Ideia{{/if}}</h2>
+      <p class="card-description">
+        {{#if idea}}
+          Atualize os detalhes da sua proposta
+        {{else}}
+          Compartilhe sua proposta de inovação com a equipe J&F
+        {{/if}}
+      </p>
+    </div>
+    <div class="card-content">
+      <form action="{{#if idea}}/ideas/{{idea.id}}{{else}}/ideas{{/if}}" method="POST" class="space-y-6">
+        {{#if idea}}
+          <input type="hidden" name="_method" value="PUT">
+        {{/if}}
+        
+        <div class="space-y-2">
+          <label for="title" class="label">Título da Ideia</label>
+          <input
+            id="title"
+            name="title"
+            type="text"
+            placeholder="Ex: Sistema de gestão sustentável"
+            value="{{idea.title}}"
+            class="input"
+            required
+          />
+          <p class="text-sm text-gray-500">
+            Seja claro e objetivo no título
+          </p>
+        </div>
+
+        <div class="space-y-2">
+          <label for="category" class="label">Categoria</label>
+          <select id="category" name="category" class="select" required>
+            <option value="">Selecione uma categoria</option>
+            {{#each categories}}
+              <option value="{{this}}" {{#if (eq this ../idea.category)}}selected{{/if}}>
+                {{this}}
+              </option>
+            {{/each}}
+          </select>
+        </div>
+
+        <div class="space-y-2">
+          <label for="description" class="label">Descrição Detalhada</label>
+          <textarea
+            id="description"
+            name="description"
+            placeholder="Descreva sua ideia em detalhes: qual problema resolve, como funciona, benefícios esperados..."
+            rows="8"
+            class="textarea"
+            required
+            minlength="50"
+          >{{idea.description}}</textarea>
+          <p class="text-sm text-gray-500">
+            Mínimo de 50 caracteres. Quanto mais detalhes, melhor!
+          </p>
+        </div>
+
+        <div class="flex gap-3">
+          <button 
+            type="submit" 
+            class="btn flex-1 bg-lime-600 hover:bg-lime-700"
+          >
+            {{#if idea}}Atualizar Ideia{{else}}Publicar Ideia{{/if}}
+          </button>
+          <a 
+            href="javascript:history.back()" 
+            class="btn btn-outline"
+          >
+            Cancelar
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

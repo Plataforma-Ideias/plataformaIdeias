@@ -1,0 +1,23 @@
+<div class="container">
+  <header>
+    <h1>Plataforma de Ideias</h1>
+  </header>
+
+  <main>
+    <p>Bem-vindo(a) à plataforma. Esta é a versão inicial usando Handlebars.</p>
+
+    <section id="ideas">
+      <h2>Ideias recentes</h2>
+      <ul>
+        {{#each ideas}}
+          <li>{{this.title}} — {{this.author}}</li>
+        {{/each}}
+      </ul>
+    </section>
+
+  </main>
+
+  <footer>
+    <small>© Plataforma de Ideias</small>
+  </footer>
+</div>
