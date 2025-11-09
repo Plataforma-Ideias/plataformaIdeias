@@ -76,8 +76,7 @@ module.exports = {
         categories, 
         currentUser: req.session.user, 
         csrfToken: req.csrfToken(),
-        action: "/ideas", 
-        method: null });
+        action: "/ideas"});
     } catch (error) {
       console.error(error);
       req.flash("error", "Erro ao carregar formulário de ideia!");
@@ -115,8 +114,7 @@ module.exports = {
         categories, 
         currentUser: req.session.user, 
         csrfToken: req.csrfToken(),
-        action: `/ideas/${idea._id}/edit`, 
-        method: "PUT" 
+        action: `/ideas/${idea._id}?_method=PUT`,
       });
     } catch (error) {
       console.error(error);

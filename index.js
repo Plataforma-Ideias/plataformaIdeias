@@ -23,8 +23,8 @@ app.use(morgan("dev"));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(cookieParser());
 app.use(methodOverride("_method"));
+app.use(cookieParser());
 
 const sessionStore = MongoStore.create({
   mongoUrl: process.env.MONGO_URL,

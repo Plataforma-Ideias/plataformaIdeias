@@ -22,7 +22,7 @@
         <div class="idea-right" style="text-align:right;">
           <form action="/ideas/{{_id}}/vote?_method=POST" method="post" style="display:inline;">
             <input type="hidden" name="_csrf" value="{{../csrfToken}}">
-            <button class="btn btn-small" type="submit">👍 Votar</button>
+            <button class="btn btn-small" type="submit">Votar</button>
           </form>
           <div class="votes" style="margin-top:4px; font-weight:600;">{{votesCount}} votos</div>
         </div>
