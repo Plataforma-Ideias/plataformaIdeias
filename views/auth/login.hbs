@@ -1,0 +1,42 @@
+<section class="auth-card autofocus" style="max-width:420px; margin:auto;">
+  <h2 style="text-align:center; color:var(--primary);">Entrar</h2>
+
+  <form action="/auth/login" method="post" style="margin-top:16px;">
+    <input type="hidden" name="_csrf" value="{{csrfToken}}" />
+
+    <div class="form-row">
+      <label for="email">E-mail</label>
+      <input
+        id="email"
+        name="email"
+        type="email"
+        placeholder="seuemail@empresa.com"
+        required
+      />
+    </div>
+
+    <div class="form-row">
+      <label for="password">Senha</label>
+      <input
+        id="password"
+        name="password"
+        type="password"
+        placeholder="••••••••"
+        required
+      />
+    </div>
+
+    <div style="margin-top:18px;">
+      <button
+        type="submit"
+        class="btn primary"
+        style="width:100%;"
+      >Entrar</button>
+    </div>
+
+    <p style="margin-top:12px; text-align:center; color:var(--muted);">
+      Não tem uma conta?
+      <a href="/auth/register">Cadastre-se</a>
+    </p>
+  </form>
+</section>

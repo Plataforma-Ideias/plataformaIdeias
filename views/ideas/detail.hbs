@@ -1,0 +1,42 @@
+<article class="idea-detail" style="max-width:800px; margin:auto;">
+  <h2>{{idea.title}}</h2>
+  <p class="meta" style="color:var(--muted);">
+    Por {{idea.author.name}} • {{formatDate idea.createdAt}}
+  </p>
+
+  <p style="margin-top:12px; white-space:pre-line;">{{idea.description}}</p>
+
+  <div class="vote-actions" style="margin-top:20px;">
+    {{#if currentUser}}
+      {{#if userVoted}}
+        <form action="/votes/unvote" method="post" style="display:inline;">
+          <input type="hidden" name="_csrf" value="{{csrfToken}}">
+          <input type="hidden" name="ideaId" value="{{idea._id}}">
+          <button class="btn" type="submit">Remover voto ({{idea.votesCount}})</button>
+        </form>
+      {{else}}
+        <form action="/votes/vote" method="post" style="display:inline;">
+          <input type="hidden" name="_csrf" value="{{csrfToken}}">
+          <input type="hidden" name="ideaId" value="{{idea._id}}">
+          <button class="btn primary" type="submit">Votar ({{idea.votesCount}})</button>
+        </form>
+      {{/if}}
+    {{else}}
+      <p><a href="/auth/login">Faça login</a> para votar.</p>
+    {{/if}}
+  </div>
+
+  {{#if (eq idea.author._id currentUser._id)}}
+    <div style="margin-top:20px;">
+      <a class="btn" href="/ideas/{{idea._id}}/edit">Editar</a>
+      <form
+        action="/ideas/{{idea._id}}?_method=DELETE"
+        method="post"
+        style="display:inline;"
+      >
+        <input type="hidden" name="_csrf" value="{{csrfToken}}">
+        <button class="btn btn-danger" type="submit">Remover</button>
+      </form>
+    </div>
+  {{/if}}
+</article>

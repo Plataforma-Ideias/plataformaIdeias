@@ -1,0 +1,56 @@
+<div class="profile-card" style="max-width:1100px;">
+  <div style="display:flex; align-items:center; justify-content:space-between;">
+    <div>
+      <h2>Perfil</h2>
+      <p style="color:var(--muted); margin:4px 0;">
+        {{user.name}} • {{user.email}}
+      </p>
+    </div>
+    <div>
+      <a class="btn" href="/ideas/new">Enviar nova ideia</a>
+    </div>
+  </div>
+
+  <section style="margin-top:18px;">
+    <h3>Minhas ideias</h3>
+
+    {{#if ideas.length}}
+      <div class="idea-list">
+        {{#each ideas}}
+          <article
+            class="idea-card"
+            style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;"
+          >
+            <div>
+              <h4 style="margin:0;">
+                <a href="/ideas/{{_id}}">{{title}}</a>
+              </h4>
+              <p class="meta" style="margin:4px 0 0 0; color:var(--muted);">
+                {{category}} • {{formatDate createdAt}}
+              </p>
+            </div>
+
+            <div style="display:flex; gap:8px; align-items:center;">
+              <a class="btn" href="/ideas/{{_id}}/edit">Editar</a>
+
+              <form
+                action="/ideas/{{_id}}?_method=DELETE"
+                method="post"
+                onsubmit="return confirm('Deseja realmente remover essa ideia?');"
+                style="display:inline;"
+              >
+                <input type="hidden" name="_csrf" value="{{../csrfToken}}" />
+                <button class="btn btn-danger" type="submit">Remover</button>
+              </form>
+            </div>
+          </article>
+        {{/each}}
+      </div>
+    {{else}}
+      <p style="color:var(--muted);">
+        Você ainda não enviou nenhuma ideia.
+        <a href="/ideas/new">Crie a primeira</a>.
+      </p>
+    {{/if}}
+  </section>
+</div>

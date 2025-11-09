@@ -1,0 +1,77 @@
+<div class="idea-form-card autofocus" style="max-width:900px; margin:auto;">
+  <h2 style="margin-bottom:16px;">
+    {{#if idea}}Editar Ideia{{else}}Enviar Nova Ideia{{/if}}
+  </h2>
+
+  <form
+    action="{{action}}"
+    method="post"
+    novalidate
+    style="display:flex; flex-direction:column; gap:16px;"
+  >
+    <input type="hidden" name="_csrf" value="{{csrfToken}}">
+    {{#if method}}
+      <input type="hidden" name="_method" value="{{method}}">
+    {{/if}}
+
+    <div class="form-row">
+      <label for="title">Título</label>
+      <input
+        id="title"
+        name="title"
+        type="text"
+        value="{{idea.title}}"
+        required
+        placeholder="Título da ideia"
+      >
+    </div>
+
+    <div class="form-row">
+      <label for="category">Categoria</label>
+      <select id="category" name="categoryId" required>
+        <option value="">-- escolha uma categoria --</option>
+        {{#each categories}}
+          <option value="{{this._id}}"
+            {{#if (eq ../idea.category._id this._id)}}selected{{/if}}>
+            {{this.name}}
+          </option>
+        {{/each}}
+      </select>
+    </div>
+
+    <div class="form-row">
+      <label for="description">
+        Descrição
+        <small id="description-count" style="color:var(--muted)">0 caracteres</small>
+      </label>
+      <textarea
+        id="description"
+        name="description"
+        rows="8"
+        required
+        placeholder="Descreva sua ideia com detalhes"
+      >{{idea.description}}</textarea>
+    </div>
+
+    <div style="margin-top:12px;">
+      <button type="submit" class="btn primary">
+        {{#if idea}}Salvar alterações{{else}}Enviar ideia{{/if}}
+      </button>
+      <a class="btn" href="/ideas">Cancelar</a>
+    </div>
+  </form>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const textarea = document.getElementById("description");
+  const count = document.getElementById("description-count");
+  if (textarea && count) {
+    const updateCount = () => {
+      count.textContent = textarea.value.length + " caracteres";
+    };
+    textarea.addEventListener("input", updateCount);
+    updateCount();
+  }
+});
+</script>
