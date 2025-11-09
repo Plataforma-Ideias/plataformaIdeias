@@ -12,7 +12,7 @@ module.exports = {
 
       res.render("index", {
         ideas,
-        currentUser: req.session.user,
+        currentUser: req.session.user || null,
         title: "Início - Plataforma de Ideias",
       });
     } catch (error) {
@@ -31,7 +31,7 @@ module.exports = {
 
       res.render("ideas/list", {
         ideas,
-        currentUser: req.session.user,
+        currentUser: req.session.user || null,
         title: "Todas as Ideias",
       });
     } catch (error) {
@@ -50,18 +50,17 @@ module.exports = {
         return res.redirect("/ideas");
       }
 
-      let userVoted = false;
-      if (req.session.user) {
-        userVoted = idea.voters?.some(
-          (voterId) => voterId.toString() === req.session.user._id.toString()
-        );
-      }
+      const userVoted = req.session.user
+        ? idea.voters?.some(
+            (voterId) => voterId.toString() === req.session.user._id.toString()
+          )
+        : false;
 
       res.render("ideas/detail", {
         idea,
         userVoted,
         csrfToken: req.csrfToken(),
-        currentUser: req.session.user,
+        currentUser: req.session.user || null,
       });
     } catch (error) {
       console.error(error);
@@ -73,7 +72,12 @@ module.exports = {
   async createIdea(req, res) {
     try {
       const categories = await Category.find().lean();
-      res.render("ideas/form", { categories, currentUser: req.session.user });
+      res.render("ideas/form", { 
+        categories, 
+        currentUser: req.session.user, 
+        csrfToken: req.csrfToken(),
+        action: "/ideas", 
+        method: null });
     } catch (error) {
       console.error(error);
       req.flash("error", "Erro ao carregar formulário de ideia!");
@@ -104,16 +108,16 @@ module.exports = {
 
   async editIdea(req, res) {
     try {
-      const { id } = req.params;
-      const idea = await Idea.findById(id).lean();
-
-      if (!idea) {
-        req.flash("error", "Ideia não encontrada!");
-        return res.redirect("/ideas");
-      }
-
+      const { idea } = res.locals;
       const categories = await Category.find().lean();
-      res.render("ideas/form", { idea, categories, currentUser: req.session.user });
+      res.render("ideas/form", { 
+        idea, 
+        categories, 
+        currentUser: req.session.user, 
+        csrfToken: req.csrfToken(),
+        action: `/ideas/${idea._id}/edit`, 
+        method: "PUT" 
+      });
     } catch (error) {
       console.error(error);
       req.flash("error", "Erro ao carregar edição da ideia!");
@@ -145,7 +149,6 @@ module.exports = {
     try {
       const { id } = req.params;
       await Idea.findByIdAndDelete(id);
-
       req.flash("success", "Ideia deletada com sucesso!");
       res.redirect("/ideas");
     } catch (error) {
@@ -175,7 +178,6 @@ module.exports = {
       idea.voters = idea.voters ? [...idea.voters, userId] : [userId];
 
       await idea.save();
-
       req.flash("success", "Voto registrado com sucesso!");
       res.redirect("/ideas");
     } catch (error) {

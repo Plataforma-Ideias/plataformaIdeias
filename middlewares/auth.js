@@ -1,8 +1,10 @@
 const Idea = require("../models/Idea");
 
 function isLoggedIn(req, res, next) {
-  if (req.session && req.session.userId) return next();
-  req.flash("error_msg", "Você precisa estar logado.");
+  if (req.session && req.session.user && req.session.user._id) {
+    return next();
+  }
+  req.flash("error", "Você precisa estar logado.");
   return res.redirect("/auth/login");
 }
 
@@ -12,12 +14,12 @@ async function isAuthor(req, res, next) {
     const idea = await Idea.findById(ideaId).lean();
 
     if (!idea) {
-      req.flash("error_msg", "Ideia não encontrada.");
+      req.flash("error", "Ideia não encontrada.");
       return res.redirect("/ideas");
     }
 
-    if (idea.author.toString() !== req.session.userId) {
-      req.flash("error_msg", "Você não tem permissão para essa ação.");
+    if (!req.session.user || idea.author.toString() !== req.session.user._id) {
+      req.flash("error", "Você não tem permissão para essa ação.");
       return res.status(403).redirect("/ideas");
     }
 
@@ -25,7 +27,7 @@ async function isAuthor(req, res, next) {
     return next();
   } catch (error) {
     console.error(error);
-    req.flash("error_msg", "Erro ao verificar permissões.");
+    req.flash("error", "Erro ao verificar permissões.");
     return res.redirect("/ideas");
   }
 }

@@ -2,11 +2,11 @@ function errorHandler(err, req, res, next) {
   console.error(err);
 
   if (err.code === "EBADCSRFTOKEN") {
-    req.flash("error_msg", "Formulário inválido (falha de segurança CSRF).");
+    req.flash("error", "Formulário inválido (falha de segurança CSRF).");
     return res.redirect("back");
   }
 
-  req.flash("error_msg", "Ocorreu um erro interno no servidor.");
+  req.flash("error", "Ocorreu um erro interno no servidor.");
   
   if (res.headersSent) {
     return next(err);

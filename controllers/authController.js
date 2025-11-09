@@ -28,19 +28,18 @@ module.exports = {
 
       try {
         const { name, email, password } = req.body;
+        const normalizedEmail = email.toLowerCase();
 
-        const existingUser = await User.findOne({ email });
+        const existingUser = await User.findOne({ email: normalizedEmail });
         if (existingUser) {
           req.flash("error", "E-mail já cadastrado!");
           return res.redirect("/auth/register");
         }
 
-        const hashedPassword = await bcrypt.hash(password, 10);
-
         const user = new User({
           name,
-          email,
-          password: hashedPassword,
+          email: normalizedEmail,
+          password: password.trim(),
         });
 
         await user.save();
@@ -51,8 +50,10 @@ module.exports = {
           email: user.email,
         };
 
-        req.flash("success", "Conta criada com sucesso!");
-        return res.redirect("/ideas");
+        req.session.save(() => {
+          req.flash("success", "Conta criada com sucesso!");
+          res.redirect("/ideas");
+        });
       } catch (error) {
         console.error(error);
         req.flash("error", "Erro ao cadastrar usuário!");
@@ -74,14 +75,16 @@ module.exports = {
 
       try {
         const { email, password } = req.body;
-        const user = await User.findOne({ email });
+        const normalizedEmail = email.toLowerCase();
 
+        const user = await User.findOne({ email: normalizedEmail });
         if (!user) {
           req.flash("error", "Usuário não encontrado!");
           return res.redirect("/auth/login");
         }
 
-        const valid = await bcrypt.compare(password, user.password);
+        const valid = await user.comparePassword(password.trim());
+
         if (!valid) {
           req.flash("error", "Senha inválida!");
           return res.redirect("/auth/login");
@@ -93,8 +96,10 @@ module.exports = {
           email: user.email,
         };
 
-        req.flash("success", `Bem-vindo de volta, ${user.name}!`);
-        return res.redirect("/ideas");
+        req.session.save(() => {
+          req.flash("success", `Bem-vindo de volta, ${user.name}!`);
+          res.redirect("/ideas");
+        });
       } catch (error) {
         console.error(error);
         req.flash("error", "Erro ao fazer login!");
@@ -104,9 +109,15 @@ module.exports = {
   ],
 
   logout(req, res) {
-    req.session.destroy(() => {
+    req.flash("success", "Logout realizado com sucesso!");
+    
+    req.session.destroy((err) => {
+      if (err) {
+        console.error(err);
+        return res.redirect("/");
+      }
+
       res.clearCookie("connect.sid");
-      req.flash("success", "Logout realizado com sucesso!");
       res.redirect("/auth/login");
     });
   },
