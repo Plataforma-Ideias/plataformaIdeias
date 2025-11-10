@@ -19,15 +19,24 @@
   },
   "homepage": "https://github.com/SophieKumagai/plataformaIdeias#readme",
   "dependencies": {
-    "bcrypt": "^6.0.0",
-    "dotenv": "^17.2.3",
-    "express": "^5.1.0",
+    "bcrypt": "^5.1.1",
+    "connect-flash": "^0.1.1",
+    "connect-mongo": "^4.6.0",
+    "cookie-parser": "^1.4.7",
+    "csurf": "^1.11.0",
+    "dotenv": "^16.6.1",
+    "express": "^4.21.2",
     "express-async-error": "^0.0.2",
+    "express-async-errors": "^3.1.1",
     "express-flash": "^0.0.2",
     "express-handlebars": "^8.0.3",
     "express-session": "^1.18.2",
-    "helmet": "^8.1.0",
-    "mongoose": "^8.19.1",
-    "nodemon": "^3.1.10"
+    "express-validator": "^6.15.0",
+    "handlebars": "^4.7.8",
+    "helmet": "^6.2.0",
+    "method-override": "^3.0.0",
+    "mongoose": "^7.8.7",
+    "morgan": "^1.10.1",
+    "nodemon": "^2.0.22"
   }
 }

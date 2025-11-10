@@ -1,0 +1,54 @@
+<section class="auth-card autofocus" style="max-width:420px; margin:auto;">
+  <h2 style="text-align:center; color:var(--primary);">Criar Conta</h2>
+
+  <form action="/auth/register" method="post" style="margin-top:16px;">
+    <input type="hidden" name="_csrf" value="{{csrfToken}}" />
+
+    <div class="form-row">
+      <label for="name">Nome completo</label>
+      <input
+        id="name"
+        name="name"
+        type="text"
+        placeholder="Seu nome"
+        required
+      />
+    </div>
+
+    <div class="form-row">
+      <label for="email">E-mail</label>
+      <input
+        id="email"
+        name="email"
+        type="email"
+        placeholder="seuemail@empresa.com"
+        required
+      />
+    </div>
+
+    <div class="form-row">
+      <label for="password">Senha</label>
+      <input
+        id="password"
+        name="password"
+        type="password"
+        placeholder="mínimo 6 caracteres"
+        minlength="6"
+        required
+      />
+    </div>
+
+    <div style="margin-top:18px;">
+      <button
+        type="submit"
+        class="btn primary"
+        style="width:100%;"
+      >Cadastrar</button>
+    </div>
+
+    <p style="margin-top:12px; text-align:center; color:var(--muted);">
+      Já possui uma conta?
+      <a href="/auth/login">Entrar</a>
+    </p>
+  </form>
+</section>

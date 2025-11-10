@@ -1,15 +1,15 @@
-const db = require("../db/conn");
+const mongoose = require("mongoose");
 
-const Idea = db.model("Idea", {
-    _id: db.Schema.Types.ObjectId,
-    title: String,
-    description: String,
-    category_id: Number,
-    author_id: Number,
-    votes: [{
-        user_id: Number,
-        created_at: Date
-    }]
-});
+const ideaSchema = new mongoose.Schema(
+  {
+    title: { type: String, required: true },
+    description: { type: String, required: true },
+    votesCount: { type: Number, default: 0 },
+    voters: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+    author: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+    category: { type: mongoose.Schema.Types.ObjectId, ref: "Category" },
+  },
+  { timestamps: true }
+);
 
-module.exports = Idea;
+module.exports = mongoose.model("Idea", ideaSchema);

@@ -1,14 +1,15 @@
 const express = require("express");
 const router = express.Router();
 
-const userRoutes = require("./userRoutes");
-const ideaRoutes = require("./ideaRoutes");
-const categoryRoutes = require("./categoryRoutes");
+const ideaController = require("../controllers/ideaController");
+const { isLoggedIn } = require("../middlewares/auth");
 
-router.get("/", (req, res) => res.redirect("/ideias"));
+router.use("/auth", require("./auth"));
+router.use("/categories", require("./category"));
+router.use("/ideas", require("./ideas"));
 
-router.use("/usuarios", userRoutes);
-router.use("/ideias", ideaRoutes);
-router.use("/categorias", categoryRoutes);
+router.get("/", ideaController.home);
+
+router.get("/profile", isLoggedIn, ideaController.profile);
 
 module.exports = router;

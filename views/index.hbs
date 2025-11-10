@@ -1,0 +1,36 @@
+<section class="hero" style="background:linear-gradient(180deg, rgba(8,59,184,0.06), rgba(110, 135, 192, 0.06)); padding:28px; border-radius:12px;">
+  <div style="display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap;">
+    <div style="flex:1; min-width:260px;">
+      <h1 style="color:var(--primary); margin:0 0 8px 0;">Plataforma de Ideias — Instituto J&F</h1>
+      <p style="color:var(--muted); margin:0 0 16px 0;">
+        Envie propostas, vote nas melhores e acompanhe o progresso das iniciativas. 
+        Seja a mudança que você quer ver no Instituto!
+      </p>
+      <div>
+        <a class="btn primary" style="margin-left: 0; margin-right: 5px;" href="/ideas">Ver ideias</a>
+        {{#if currentUser}}
+          <a class="btn-box" href="/ideas/new">Enviar ideia</a>
+        {{else}}
+          <a class="btn-box" href="/auth/login">Entrar / Cadastrar</a>
+        {{/if}}
+      </div>
+    </div>
+
+    <div style="width:320px;">
+      <div style="background:var(--card); padding:14px; border-radius:10px; box-shadow:var(--shadow);">
+        <h3 style="margin:0 0 8px 0;">Destaques</h3>
+        <p style="color:var(--muted); margin:0;">
+          As ideias com mais votos aparecem no topo da lista — participe e ajude a priorizar iniciativas de impacto.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="margin-top:24px;">
+  {{#if ideas.length}}
+    {{> ideas/list ideas=ideas currentUser=currentUser }}
+  {{else}}
+    <p style="text-align:center; color:var(--muted); margin-top:20px;">Nenhuma ideia publicada ainda. Que tal ser o primeiro?</p>
+  {{/if}}
+</section>

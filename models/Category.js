@@ -1,8 +1,18 @@
-const db = require("../db/conn");
+const mongoose = require("mongoose");
 
-const Category = db.model("Category", {
-    _id: db.Schema.Types.ObjectId,
-    name: String,
-});
+const categorySchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    color: {
+      type: String,
+      default: "#cccccc",
+    },
+  },
+  { timestamps: true }
+);
 
-module.exports = Category;
+module.exports = mongoose.model("Category", categorySchema);
