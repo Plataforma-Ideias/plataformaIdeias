@@ -1,4 +1,4 @@
-<section class="hero" style="background:linear-gradient(180deg, rgba(8,59,184,0.06), transparent); padding:28px; border-radius:12px;">
+<section class="hero" style="background:linear-gradient(180deg, rgba(8,59,184,0.06), rgba(110, 135, 192, 0.06)); padding:28px; border-radius:12px;">
   <div style="display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap;">
     <div style="flex:1; min-width:260px;">
       <h1 style="color:var(--primary); margin:0 0 8px 0;">Plataforma de Ideias — Instituto J&F</h1>
@@ -7,11 +7,11 @@
         Seja a mudança que você quer ver no Instituto!
       </p>
       <div>
-        <a class="btn primary" href="/ideas">Ver ideias</a>
+        <a class="btn primary" style="margin-left: 0; margin-right: 5px;" href="/ideas">Ver ideias</a>
         {{#if currentUser}}
-          <a class="btn" href="/ideas/new">Enviar ideia</a>
+          <a class="btn-box" href="/ideas/new">Enviar ideia</a>
         {{else}}
-          <a class="btn" href="/auth/login">Entrar / Cadastrar</a>
+          <a class="btn-box" href="/auth/login">Entrar / Cadastrar</a>
         {{/if}}
       </div>
     </div>

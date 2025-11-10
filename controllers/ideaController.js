@@ -4,34 +4,60 @@ const Idea = require("../models/Idea");
 module.exports = {
   async home(req, res) {
     try {
+      const currentUser = req.session.user;
+
       const ideas = await Idea.find()
+        .populate("author")
         .populate("category")
         .sort({ votesCount: -1 })
         .limit(6)
         .lean();
 
+      if (currentUser) {
+        ideas.forEach((idea) => {
+          idea.hasVoted = idea.voters?.some(
+            (voter) => voter.toString() === currentUser._id.toString()
+          );
+
+          idea.isAuthor = idea.author?._id.toString() === currentUser._id.toString();
+        });
+      }
+
       res.render("index", {
         ideas,
-        currentUser: req.session.user || null,
+        currentUser: currentUser || null,
         title: "Início - Plataforma de Ideias",
       });
     } catch (error) {
       console.error(error);
       req.flash("error", "Erro ao carregar ideias!");
-      res.redirect("/ideas");
+      res.redirect("/");
     }
   },
 
   async showIdeas(req, res) {
     try {
+      const currentUser = req.session.user;
+
       const ideas = await Idea.find()
+        .populate("author")
         .populate("category")
         .sort({ votesCount: -1 })
         .lean();
 
+      if (currentUser) {
+        ideas.forEach((idea) => {
+          idea.hasVoted = idea.voters?.some(
+            (voter) => voter.toString() === currentUser._id.toString()
+          );
+
+          idea.isAuthor = idea.author?._id.toString() === currentUser._id.toString();
+        });
+      }
+
       res.render("ideas/list", {
         ideas,
-        currentUser: req.session.user || null,
+        currentUser,
         title: "Todas as Ideias",
       });
     } catch (error) {
@@ -44,7 +70,11 @@ module.exports = {
   async showDetail(req, res) {
     try {
       const { id } = req.params;
-      const idea = await Idea.findById(id).populate("author").lean();
+      const idea = await Idea.findById(id)
+        .populate("author")
+        .populate("category")
+        .lean();
+
       if (!idea) {
         req.flash("error", "Ideia não encontrada!");
         return res.redirect("/ideas");
@@ -72,11 +102,12 @@ module.exports = {
   async createIdea(req, res) {
     try {
       const categories = await Category.find().lean();
-      res.render("ideas/form", { 
-        categories, 
-        currentUser: req.session.user, 
+      res.render("ideas/form", {
+        categories,
+        currentUser: req.session.user,
         csrfToken: req.csrfToken(),
-        action: "/ideas"});
+        action: "/ideas",
+      });
     } catch (error) {
       console.error(error);
       req.flash("error", "Erro ao carregar formulário de ideia!");
@@ -87,6 +118,11 @@ module.exports = {
   async saveIdea(req, res) {
     try {
       const { title, description, categoryId } = req.body;
+
+      if (!title || !description || !categoryId) {
+        req.flash("error", "Preencha todos os campos obrigatórios!");
+        return res.redirect("/ideas/new");
+      }
 
       const idea = new Idea({
         title,
@@ -109,10 +145,10 @@ module.exports = {
     try {
       const { idea } = res.locals;
       const categories = await Category.find().lean();
-      res.render("ideas/form", { 
-        idea, 
-        categories, 
-        currentUser: req.session.user, 
+      res.render("ideas/form", {
+        idea,
+        categories,
+        currentUser: req.session.user,
         csrfToken: req.csrfToken(),
         action: `/ideas/${idea._id}?_method=PUT`,
       });
@@ -127,6 +163,11 @@ module.exports = {
     try {
       const { id } = req.params;
       const { title, description, categoryId } = req.body;
+
+      if (!title || !description || !categoryId) {
+        req.flash("error", "Preencha todos os campos obrigatórios!");
+        return res.redirect(`/ideas/${id}/edit`);
+      }
 
       await Idea.findByIdAndUpdate(id, {
         title,
@@ -167,6 +208,11 @@ module.exports = {
         return res.redirect("/ideas");
       }
 
+      if (idea.author.toString() === userId.toString()) {
+        req.flash("error", "Você não pode votar na sua própria ideia!");
+        return res.redirect("/ideas");
+      }
+
       if (idea.voters && idea.voters.includes(userId)) {
         req.flash("error", "Você já votou nessa ideia!");
         return res.redirect("/ideas");
@@ -188,15 +234,19 @@ module.exports = {
   async profile(req, res) {
     try {
       const userId = req.session.user._id;
+
       const ideas = await Idea.find({ author: userId })
         .populate("category")
         .sort({ createdAt: -1 })
         .lean();
 
+      const totalVotes = ideas.reduce((sum, idea) => sum + (idea.votesCount || 0), 0);
+
       res.render("profile", {
         ideas,
         user: req.session.user,
         currentUser: req.session.user,
+        totalVotes,
       });
     } catch (error) {
       console.error(error);

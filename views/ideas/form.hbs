@@ -29,7 +29,7 @@
         <option value="">-- escolha uma categoria --</option>
         {{#each categories}}
           <option value="{{this._id}}"
-            {{#if (eq ../idea.category._id this._id)}}selected{{/if}}>
+            {{#if (eq ../idea.category this._id)}}selected{{/if}}>
             {{this.name}}
           </option>
         {{/each}}
@@ -54,7 +54,7 @@
       <button type="submit" class="btn primary">
         {{#if idea}}Salvar alterações{{else}}Enviar ideia{{/if}}
       </button>
-      <a class="btn" href="/ideas">Cancelar</a>
+      <a class="btn-box" style="font-size: 12px;" href="/ideas">Cancelar</a>
     </div>
   </form>
 </div>

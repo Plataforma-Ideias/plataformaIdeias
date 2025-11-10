@@ -13,6 +13,7 @@ body {
   background: var(--bg);
   color: #222;
 }
+
 .topbar {
   background: var(--primary);
   color: white;
@@ -22,11 +23,13 @@ body {
   justify-content: space-between;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08);
 }
+
 .topbar .brand {
   display: flex;
   align-items: center;
   gap: 12px;
 }
+
 .topbar .logo {
   background: #fff;
   color: var(--primary);
@@ -35,10 +38,12 @@ body {
   padding: 6px 10px;
   font-size: 18px;
 }
+
 .topbar h1 {
   font-size: 18px;
   margin: 0;
 }
+
 .container {
   max-width: 1100px;
   margin: 36px auto;
@@ -46,22 +51,23 @@ body {
 }
 
 .btn {
-  padding: 8px 12px;
-  border-radius: 10px;
+  padding: 6px 12px;
+  border-radius: 8px;
   border: 0;
   cursor: pointer;
   background: transparent;
-  color: var(--primary);
-  margin-left: 8px;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
+
 .btn.primary {
   background: var(--primary);
   color: #fff;
   box-shadow: 0 6px 12px rgba(10, 40, 120, 0.08);
-}
-.btn-danger {
-  background: #ff5c5c;
-  color: #fff;
 }
 
 .flash {
@@ -69,53 +75,101 @@ body {
   border-radius: 8px;
   margin-bottom: 16px;
 }
+
 .flash-success {
   background: #e6fbf1;
   color: #0a7a47;
 }
+
 .flash-error {
   background: #ffe6e6;
   color: #a33;
 }
 
 .ideas-list {
-  display: block;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  gap: 16px;
   margin-top: 18px;
 }
+
 .idea-card {
-  background: var(--card);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; 
+  background: var(--card, #fff);
+  padding: 16px;
   border-radius: 12px;
-  padding: 18px;
-  margin-bottom: 18px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  width: 25%;
+}
+
+.idea-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.idea-left {
+  flex-grow: 1;
+}
+
+.idea-left h3 {
+  margin: 15px 0 0 0;
+  font-size: 16px;
+}
+
+.idea-right {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  box-shadow: var(--shadow);
-}
-.idea-card h3 {
-  margin: 0;
+  gap: 4px;
   color: var(--primary);
+  font-weight: 600;
+  font-size: 14px;
 }
+
+.actions-bottom {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.actions-bottom .btn-box .btn {
+  flex: 1;
+  margin: 0;
+}
+
+.actions-bottom .btn:not(:only-child) {
+  flex: initial;
+}
+
+.actions-bottom:has(> :only-child) .btn {
+  width: 100%;
+}
+
+.badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.author,
 .idea-card .meta {
+  font-size: 14px;
   color: var(--muted);
-  margin-top: 6px;
+  margin: 8px 0;
+}
+
+.description {
+  margin-top: 16px;
   font-size: 13px;
-}
-
-.idea-detail {
-  background: var(--card);
-  padding: 18px;
-  border-radius: 12px;
-  box-shadow: var(--shadow);
-}
-.vote-actions {
-  margin-top: 14px;
-}
-
-.profile {
-  display: grid;
-  grid-template-columns: 1fr 320px;
-  gap: 20px;
 }
 
 .auth-card {
@@ -146,9 +200,342 @@ body {
   border: 1px solid #ccc;
   font-size: 15px;
 }
+
 .form-row input:focus,
 .form-row textarea:focus,
 .form-row select:focus {
   outline: 2px solid var(--accent);
   border-color: var(--accent);
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-right .user {
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+  font-size: 12px;
+  color: #fff;
+}
+
+.user small {
+  margin-top: 2px;
+  color: #a3d0f5;
+  font-weight: normal;
+  margin-left: 4px;
+}
+
+.btn-box {
+  background: transparent;
+  color: var(--primary);
+  box-shadow: none;
+  padding: 6px 12px;
+  border: 2px solid var(--primary);
+  border-radius: 8px;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.btn-text {
+  background: transparent;
+  color: var(--primary);
+  box-shadow: none;
+  padding: 6px 0;
+  border: none;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.icon {
+  width: 16px;
+  height: 16px;
+  vertical-align: middle;
+  margin-right: 4px;
+}
+
+.icon-maior {
+  width: 23px;
+  height: 23px;
+  vertical-align: middle;
+  margin-right: 6px;
+}
+
+.separator {
+  display: inline-block;
+  width: 1px;
+  height: 24px;
+  background-color: #ccc;
+  margin: 0 8px;
+  vertical-align: middle;
+}
+
+.idea-detail {
+  background: var(--card);
+  padding: 24px 28px;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  max-width: 800px;
+  margin: 40px auto;
+}
+
+.idea-header {
+  position: relative;
+  padding-right: 120px;
+}
+
+.idea-header h2 {
+  font-size: 28px;
+  margin: 8px 0 4px;
+  font-weight: 600;
+}
+
+.idea-header .badge {
+  color: #fff;
+  font-size: 13px;
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.idea-header .meta {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: var(--muted);
+  font-size: 15px;
+  margin-top: 10px;
+}
+
+.vote-box {
+  position: absolute;
+  top: 10px;
+  right: 0;
+  background: #f5f8ff;
+  border-radius: 10px;
+  padding: 12px 20px;
+  text-align: center;
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.vote-icon {
+  font-size: 22px;
+}
+
+.vote-count {
+  font-size: 22px;
+  line-height: 1.2;
+}
+
+.vote-label {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.idea-body {
+  margin-top: 20px;
+}
+
+.idea-body h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.idea-body p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #333;
+}
+
+.vote-actions {
+  margin-top: 26px;
+  width: 100%;
+}
+
+.vote-actions form {
+  width: 100%;
+}
+
+.vote-actions .btn.primary {
+  width: 98%;
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 15px;
+}
+
+.already-voted {
+  background: #f6f7f9;
+  color: #555;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.flash-success {
+  margin-top: 14px;
+  background: #e8f9f0;
+  color: #15803d;
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.profile {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 20px;
+}
+
+.profile-page {
+  max-width: 1100px;
+  margin: 40px auto;
+  background: transparent;
+}
+
+.profile-page h1 {
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.profile-page .subtitle {
+  color: var(--muted);
+  margin-bottom: 28px;
+}
+
+.profile-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-bottom: 32px;
+}
+
+.profile-card {
+  background: var(--card);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  padding: 22px 24px;
+}
+
+.profile-card h3 {
+  font-size: 17px;
+  font-weight: 600;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.profile-card.info .name {
+  font-size: 20px;
+  font-weight: 600;
+  margin-top: 12px;
+}
+
+.profile-card.info .email,
+.profile-card.info .dept {
+  color: var(--muted);
+  font-size: 15px;
+  margin: 6px 0;
+}
+
+.profile-card .number {
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--primary);
+  margin-top: 12px;
+}
+
+.profile-card.votes .number {
+  color: #1e88e5;
+}
+
+.profile-card .label {
+  color: var(--muted);
+  font-size: 15px;
+  margin-top: 4px;
+}
+
+.profile-ideas {
+  background: var(--card);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  padding: 20px 26px;
+}
+
+.profile-ideas h2 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.profile-ideas .hint {
+  color: var(--muted);
+  margin-bottom: 18px;
+}
+
+.idea-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.idea-item {
+  background: #fff;
+  border-radius: 10px;
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: var(--shadow);
+}
+
+.idea-info h4 {
+  font-size: 16px;
+  margin: 6px 0;
+}
+
+.idea-info p {
+  color: var(--muted);
+  font-size: 14px;
+  margin: 0;
+}
+
+.idea-info .badge {
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  color: #fff;
+  font-weight: 600;
+  margin-right: 8px;
+}
+
+.idea-info .votes {
+  font-size: 13px;
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.btn-view {
+  background: #f5f8ff;
+  color: var(--primary);
+  padding: 8px 14px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
 }
