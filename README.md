@@ -18,8 +18,7 @@ A modelagem do banco foi feita para representar as entidades principais do siste
 Representa o usuário autenticado no sistema.
 - `name`: nome do usuário  
 - `email`: único e obrigatório  
-- `password`: armazenado com hash (bcrypt)  
-- `type`: define o papel (`user` ou `admin`)  
+- `password`: armazenado com hash (bcrypt)
 - Relacionamentos:
   - Pode **criar** várias ideias (`Idea`)
   - Pode **votar** em ideias (armazenado em `Idea.voters`)
