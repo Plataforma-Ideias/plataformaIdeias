@@ -44,7 +44,7 @@ Classifica ideias por temas.
 1. **Clonar o repositório:**
    ```bash
    git clone <repo>
-   cd plataforma-ideias
+   cd plataformaIdeias
    ````
 
 2. **Instalar dependências:**
