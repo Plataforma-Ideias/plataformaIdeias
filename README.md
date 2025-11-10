@@ -137,10 +137,15 @@ Classifica ideias por temas.
 ## 🧾 Recursos Implementados
 
 ✅ Autenticação com **bcrypt + sessions**
+
 ✅ **CRUD de ideias** (somente autor pode editar/remover)
+
 ✅ **Voto único** por usuário (validação no backend)
+
 ✅ **Listagem ordenada** por votos
+
 ✅ Proteções de segurança
+
 ✅ Feedback ao usuário com **flash messages**
 
 ---
@@ -157,5 +162,3 @@ npm start  # Executa aplicação
 ## 👩‍💻 Autoria
 
 Desenvolvido como MVP da **Plataforma de Ideias** — um espaço para propor, compartilhar e apoiar novas ideias colaborativas.
-
-```
